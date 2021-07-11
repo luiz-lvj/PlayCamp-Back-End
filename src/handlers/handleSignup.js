@@ -34,7 +34,7 @@ export const handlePostSignup = async (req, res) =>{
 const isDuplicatedEmail = async (email) =>{
     try{
         const emailUser = await connection.query("SELECT email FROM users WHERE email=$1",[email]);
-        if(emailUser.rows && emailUser.rowCount > 0){
+        if(emailUser.rowCount > 0){
             return true;
         }
         return false;

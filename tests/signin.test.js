@@ -5,15 +5,15 @@ import connection from "../src/connectDb";
 describe("POST /signin", () => {
     it("returns 200 for valid login", async () => {
         let body = {
-            name: "teste",
-            email: "teste@teste.com",
+            name: "teste3",
+            email: "teste3@teste.com",
             userType: "developer",
             password: "123" 
         }
         const userCreated = await supertest(app).post("/signup").send(body);
         expect(userCreated.status).toEqual(201);
         body = {
-            email: "teste@teste.com",
+            email: "teste3@teste.com",
             password: "123"
         }
         const signinUser = await supertest(app).post("/signin").send(body);
@@ -23,22 +23,22 @@ describe("POST /signin", () => {
     it("returns 400 for bad requests", async () => {
         let body = {
             name: "teste",
-            email: "teste@teste.com",
+            email: "teste5@teste.com",
             userType: "developer",
             password: "123" 
         }
         const userCreated = await supertest(app).post("/signup").send(body);
         expect(userCreated.status).toEqual(201);
         body = {
-            email: "teste@teste.com"
+            email: "teste5@teste.com"
         }
         const signinUser = await supertest(app).post("/signin").send(body);
         expect(signinUser.status).toEqual(400);
     });
     it("returns 404 for unknown user", async () => {
         const body = {
-            email: "teste@teste.com",
-            password: "123"
+            email: "teste6@teste.com",
+            password: "abc"
         }
         const signinUser = await supertest(app).post("/signin").send(body);
         expect(signinUser.status).toEqual(404);
@@ -59,15 +59,14 @@ describe("POST /signin", () => {
         const signinUserTest = await supertest(app).post("/signin").send(body);
         expect(signinUserTest.status).toEqual(403);
     });
+    beforeEach(async () => {
+        await connection.query('DELETE FROM users');
+        await connection.query('DELETE FROM sessions');
+    });
+    
+    afterAll(async () => {
+        await connection.query('DELETE FROM users');
+        await connection.query('DELETE FROM sessions')
+        await connection.end();
+    });
 });
-beforeEach(async () => {
-    await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM sessions');
-});
-
-afterAll(async () => {
-    await connection.query('DELETE FROM users');
-    await connection.query('DELETE FROM sessions')
-    connection.end();
-});
-

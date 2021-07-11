@@ -7,7 +7,7 @@ describe("POST /signup", ()=>{
     it("returns 201 for valid signup", async () =>{
         const body1 = {
             name: "teste1",
-            email: "teste1@teste.com",
+            email: "teste1@teste1.com",
             userType: "developer",
             password: "123" 
         }
@@ -44,25 +44,25 @@ describe("POST /signup", ()=>{
         expect(userCreated3.status).toEqual(400);
     });
     it("returns 409 for duplicated email", async ()=>{
-        const body = {
-            name: "teste",
-            email: "teste@teste.com",
+        const duplicatedBody = {
+            name: "testuserduplicated",
+            email: "testuserduplicated@testuserduplicated.com",
             userType: "normal",
             password: "123"
         }
-        const userCreated1 = await supertest(app).post("/signup").send(body);
+        const userCreated1 = await supertest(app).post("/signup").send(duplicatedBody);
         expect(userCreated1.status).toEqual(201);
-        const userCreated2 = await supertest(app).post("/signup").send(body);
+        const userCreated2 = await supertest(app).post("/signup").send(duplicatedBody);
         expect(userCreated2.status).toEqual(409);
-    })
+    });
+    beforeEach(async () => {
+        await connection.query('DELETE FROM users');
+    });
+    
+    afterAll(async () => {
+        await connection.query('DELETE FROM users');
+        await connection.end();
+    });
     
 });
 
-beforeEach(async () => {
-    await connection.query('DELETE FROM users');
-});
-
-afterAll(async () => {
-    await connection.query('DELETE FROM users');
-    connection.end();
-});
