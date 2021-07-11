@@ -1,7 +1,7 @@
-import { userLoginSchema } from "../schemas";
-import { isValidEmail } from "./utils";
+import { userLoginSchema } from "../schemas.js";
+import { isValidEmail } from "./utils.js";
 import bcrypt from "bcrypt";
-import connection from "../connectDb";
+import connection from "../connectDb.js";
 import { v4 as uuid } from "uuid";
 
 export const handlePostSignin = async (req, res) =>{
@@ -25,7 +25,11 @@ export const handlePostSignin = async (req, res) =>{
             sessions("userId", token)
             VALUES ($1, $2)`, [user.id, token]);
             res.status(200);
-            return res.send({token});
+            return res.send({
+                token: token,
+                userName: user.name,
+                userType: user.userType
+            });
         }
         return res.sendStatus(403);
     } catch {
