@@ -19,6 +19,8 @@ describe("POST /signin", () => {
         const signinUser = await supertest(app).post("/signin").send(body);
         expect(signinUser.status).toEqual(200);
         expect(signinUser.body).toHaveProperty('token');
+        expect(signinUser.body).toHaveProperty('userName');
+        expect(signinUser.body).toHaveProperty('userType');
     });
     it("returns 400 for bad requests", async () => {
         let body = {

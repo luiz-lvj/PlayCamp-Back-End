@@ -25,7 +25,11 @@ export const handlePostSignin = async (req, res) =>{
             sessions("userId", token)
             VALUES ($1, $2)`, [user.id, token]);
             res.status(200);
-            return res.send({token});
+            return res.send({
+                token: token,
+                userName: user.name,
+                userType: user.userType
+            });
         }
         return res.sendStatus(403);
     } catch {
