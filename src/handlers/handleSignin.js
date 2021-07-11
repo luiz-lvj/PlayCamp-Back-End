@@ -28,7 +28,8 @@ export const handlePostSignin = async (req, res) =>{
             return res.send({
                 token: token,
                 userName: user.name,
-                userType: user.userType
+                userType: user.userType,
+                id: user.id
             });
         }
         return res.sendStatus(403);
