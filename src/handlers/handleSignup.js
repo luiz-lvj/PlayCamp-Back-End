@@ -13,7 +13,7 @@ export const handlePostSignup = async (req, res) =>{
         const password = String(req.body.password).trim();
         const userType = String(req.body.userType).trim();
         const hashPassword = bcrypt.hashSync(password, 10);
-        if(!isValidEmail(email)){
+        if(!isValidEmail(email) || password.includes(" ")){
             return res.sendStatus(400);
         }
         if(await isDuplicatedEmail(email)){

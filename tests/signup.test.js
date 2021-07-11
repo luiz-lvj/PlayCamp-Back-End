@@ -3,7 +3,7 @@ import connection from '../src/connectDb';
 import supertest from 'supertest';
 import app from '../src/app';
 
-describe("POST /sigup", ()=>{
+describe("POST /signup", ()=>{
     it("returns 201 for valid signup", async () =>{
         const body1 = {
             name: "teste1",
