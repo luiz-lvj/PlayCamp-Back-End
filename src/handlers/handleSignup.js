@@ -1,6 +1,7 @@
 import { userSchema } from "../schemas";
 import bcrypt from 'bcrypt';
 import connection from "../connectDb";
+import { isValidEmail } from "./utils";
 
 export const handlePostSignup = async (req, res) =>{
     try{
@@ -12,6 +13,9 @@ export const handlePostSignup = async (req, res) =>{
         const password = String(req.body.password).trim();
         const userType = String(req.body.userType).trim();
         const hashPassword = bcrypt.hashSync(password, 10);
+        if(!isValidEmail(email)){
+            return res.sendStatus(400);
+        }
         if(await isDuplicatedEmail(email)){
             return res.sendStatus(409);
         }
