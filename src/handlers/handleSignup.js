@@ -1,7 +1,7 @@
-import { userSchema } from "../schemas";
+import { userSchema } from "../schemas.js";
 import bcrypt from 'bcrypt';
-import connection from "../connectDb";
-import { isValidEmail } from "./utils";
+import connection from "../connectDb.js";
+import { isValidEmail } from "./utils.js";
 
 export const handlePostSignup = async (req, res) =>{
     try{

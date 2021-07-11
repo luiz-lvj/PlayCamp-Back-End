@@ -1,4 +1,4 @@
-import connection from "../connectDb";
+import connection from "../connectDb.js";
 
 export const handlePostLogout = async (req, res) => {
     try{
