@@ -21,6 +21,7 @@ describe("POST /signin", () => {
         expect(signinUser.body).toHaveProperty('token');
         expect(signinUser.body).toHaveProperty('userName');
         expect(signinUser.body).toHaveProperty('userType');
+        expect(signinUser.body).toHaveProperty('id');
     });
     it("returns 400 for bad requests", async () => {
         let body = {
