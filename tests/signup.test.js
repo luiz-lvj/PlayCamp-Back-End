@@ -62,7 +62,6 @@ describe("POST /signup", ()=>{
     afterAll(async () => {
         await connection.query('DELETE FROM users');
         await connection.end();
-    });
-    
+    });    
 });
 
