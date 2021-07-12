@@ -9,11 +9,10 @@ const port_database = 5432;
 const database = 'playcamp';
 
 const connection = new Pool({
-    user,
-    password,
-    host,
-    port_database,
-    database
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 export default connection;
