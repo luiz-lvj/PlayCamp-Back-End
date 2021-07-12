@@ -1,5 +1,5 @@
 import app from './app.js';
 
-app.listen(5432, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server running on port 5432");
 });
